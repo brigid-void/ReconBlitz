@@ -1,0 +1,19 @@
+[package]
+name = "reconblitz"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+reqwest = { version = "0.11", features = ["json"] }
+docker-api = "0.3.0"
+clap = { version = "4.0", features = ["derive"] }
+chrono = "0.4"
+anyhow = "1.0"
+html-escape = "0.2.11"
+futures = "0.3"
+
+[build-dependencies]
+vergen = { version = "7", features = ["build", "git", "git2"] }

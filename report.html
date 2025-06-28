@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ReconBlitz Report</title>
+<style>
+body { font-family: sans-serif; }
+.tool { background-color: #f0f0f0; padding: 10px; margin-bottom: 10px; }
+.success { color: green; }
+.failure { color: red; }
+</style>
+</head>
+<body>
+<h1>ReconBlitz Report</h1>
+<p>Generated at: 2025-06-28 06:45:29</p>
+<div class="tool"><h2>dnsenum</h2><p>Status: <span class="failure">Failure</span></p><pre>Command timed out</pre></div>
+<div class="tool"><h2>nmap</h2><p>Status: <span class="success">Success</span></p><pre>Starting Nmap 7.97 ( https://nmap.org ) at 2025-06-27 23:45 -0700
+Nmap scan report for netflix.com (44.240.158.19)
+Host is up (0.030s latency).
+Other addresses for netflix.com (not scanned): 44.242.13.161 52.38.7.83 2600:1f14:62a:de81:b848:82ee:2416:447e 2600:1f14:62a:de82:822d:a423:9e4c:da8d 2600:1f14:62a:de80:69a8:7b12:8e5f:855d
+rDNS record for 44.240.158.19: ec2-44-240-158-19.us-west-2.compute.amazonaws.com
+Not shown: 998 filtered tcp ports (no-response)
+PORT    STATE SERVICE
+80/tcp  open  http
+443/tcp open  https
+
+Nmap done: 1 IP address (1 host up) scanned in 4.25 seconds
+</pre></div>
+<div class="tool"><h2>nikto</h2><p>Status: <span class="failure">Failure</span></p><pre>Command timed out</pre></div>
+<div class="tool"><h2>gobuster</h2><p>Status: <span class="failure">Failure</span></p><pre>Command timed out</pre></div>
+</body>
+</html>
