@@ -8,18 +8,33 @@ ReconBlitz is a lightweight, Rust-based reconnaissance tool designed for securit
 - **Extensible**: Easily add new tools to the scanner.
 - **HTML & JSON Reporting**: Generates easy-to-read HTML reports and machine-readable JSON output.
 
+## Quickstart
+
+1. **Build the tool**:
+   ```bash
+   cargo build --release
+   ```
+
+2. **Run a scan**:
+   ```bash
+   ./target/release/reconblitz --target example.com --profile fast
+   ```
+
+3. **View the report**:
+   Check the generated `reconblitz_report_*.html` file in your current directory.
+
 ## Usage
 
 To run a scan, use the following command:
 
 ```bash
-cargo run -- --target <TARGET_DOMAIN> --profile <PROFILE_NAME> --format <html|json>
+./target/release/reconblitz --target <TARGET_DOMAIN> --profile <PROFILE_NAME> --format <html|json>
 ```
 
 **Example:**
 
 ```bash
-cargo run -- --target example.com --profile fast --format html
+./target/release/reconblitz --target example.com --profile fast --format html
 ```
 
 ## Output
