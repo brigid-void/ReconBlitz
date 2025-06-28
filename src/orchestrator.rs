@@ -14,7 +14,13 @@ pub async fn run_scan(profile: &ScanProfile, target: &str, stealth: bool, benchm
         let future = async move {
             let start = Instant::now();
             let args = vec![target_clone.as_str()];
-            let result = scanner::run_tool(&tool_clone, &args, stealth).await;
+            
+            // Use RustScan hybrid method for nmap in fast/stealth profiles
+            let result = if tool_clone == "nmap" && (profile.name == "fast" || profile.name == "stealth") {
+                scanner::run_rustscan_with_nmap(&target_clone, stealth).await
+            } else {
+                scanner::run_tool(&tool_clone, &args, stealth).await
+            };
             
             if benchmark {
                 let duration = start.elapsed();
