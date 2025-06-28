@@ -1,5 +1,5 @@
 use clap::{Parser, ValueEnum};
-use reconblitz::{load_profiles, run, ScanProfile};
+use reconblitz::{load_profiles, run};
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]

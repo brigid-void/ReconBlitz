@@ -22,12 +22,18 @@ pub fn generate_json_report(results: &HashMap<String, crate::scanner::ScanResult
         scans: results
             .iter()
             .map(|(tool, result)| {
+                let (output, success) = match result {
+                    crate::scanner::ScanResult::Success(s) => (s.clone(), true),
+                    crate::scanner::ScanResult::Failure(s) => (s.clone(), false),
+                    crate::scanner::ScanResult::Error(e) => (e.clone(), false),
+                    crate::scanner::ScanResult::Timeout => ("Command timed out".to_string(), false),
+                };
                 (
                     tool.clone(),
                     ScanReport {
                         tool: tool.clone(),
-                        output: result.output.clone(),
-                        success: result.success,
+                        output,
+                        success,
                     },
                 )
             })
@@ -47,16 +53,21 @@ pub fn generate_html_report(results: &HashMap<String, crate::scanner::ScanResult
     html.push_str(".tool { background-color: #f0f0f0; padding: 10px; margin-bottom: 10px; }\n");
     html.push_str(".success { color: green; }\n");
     html.push_str(".failure { color: red; }\n");
+    html.push_str(".timeout { color: orange; }\n");
     html.push_str("</style>\n</head>\n<body>\n");
     html.push_str(&format!("<h1>ReconBlitz Report</h1>\n<p>Generated at: {}</p>\n", timestamp));
 
     for (tool, result) in results {
+        let (status_class, status_text, output) = match result {
+            crate::scanner::ScanResult::Success(s) => ("success", "Success", s.clone()),
+            crate::scanner::ScanResult::Failure(s) => ("failure", "Failure", s.clone()),
+            crate::scanner::ScanResult::Error(e) => ("failure", "Error", e.clone()),
+            crate::scanner::ScanResult::Timeout => ("timeout", "Timeout", "Command timed out".to_string()),
+        };
+
         html.push_str(&format!("<div class=\"tool\"><h2>{}</h2>", tool));
-        html.push_str(&format!("<p>Status: <span class=\"{}\">{}</span></p>", 
-            if result.success { "success" } else { "failure" },
-            if result.success { "Success" } else { "Failure" }
-        ));
-        html.push_str(&format!("<pre>{}</pre>", html_escape::encode_text(&result.output)));
+        html.push_str(&format!("<p>Status: <span class=\"{}\">{}</span></p>", status_class, status_text));
+        html.push_str(&format!("<pre>{}</pre>", html_escape::encode_text(&output)));
         html.push_str("</div>\n");
     }
 
