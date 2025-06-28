@@ -4,58 +4,23 @@ ReconBlitz is a lightweight, Rust-based reconnaissance tool designed for securit
 
 ## Features
 
-- **Profile-based Scanning**: Use predefined profiles (`fast`, `full`) to run different sets of tools.
-- **Extensible**: Easily add new tools to the scanner.
-- **HTML & JSON Reporting**: Generates easy-to-read HTML reports and machine-readable JSON output.
-
-## Quickstart
-
-1. **Build the tool**:
-   ```bash
-   cargo build --release
-   ```
-
-2. **Run a scan**:
-   ```bash
-   ./target/release/reconblitz --target example.com --profile fast
-   ```
-
-3. **View the report**:
-   Check the generated `reconblitz_report_*.html` file in your current directory.
-
-## Usage
-
-To run a scan, use the following command:
-
-```bash
-./target/release/reconblitz --target <TARGET_DOMAIN> --profile <PROFILE_NAME> --format <html|json>
-```
-
-**Example:**
-
-```bash
-./target/release/reconblitz --target example.com --profile fast --format html
-```
-
-## Output
-
-- **HTML**: A file named `report.html` will be created in the project's root directory.
-- **JSON**: The output will be printed directly to the console.
-
-## Building from Source
-
-1.  Ensure you have Rust and Cargo installed.
-2.  Clone the repository: `git clone <repo_url>`
-3.  Build the project: `cargo build --release`
-4.  The executable will be in `target/release/reconblitz`.
-> Rust-based Network Reconnaissance Bundler for Bug Bounty, CTF, and Lab Environments
-
-## Features
 - **Tool Orchestration**: Bundles nmap, masscan, ffuf, amass, and subfinder
 - **Parallel Execution**: Runs tools concurrently with configurable timeouts
 - **Security Focus**: Input sanitization and safe command execution
 - **Multiple Profiles**: Pre-configured scanning profiles (fast/deep/web)
 - **Unified Reporting**: JSON/HTML output with critical findings summary
+- **Hybrid Scanning**: Uses a hybrid scanning approach with RustScan and nmap for fast and accurate results. See [Scanning Flow](docs/scanning-flow.md) for more details.
+
+## Security Enhancements
+- **Input Validation**: All target inputs are validated as valid IPs or domain names
+- **Least Privilege**: Runs as non-root user in Docker container
+- **Dependency Scanning**: cargo-audit integrated for vulnerability detection
+- **Secure Defaults**: Timeouts and resource limits enabled by default
+
+## Robustness Features
+- **Configurable Timeouts**: Set per-scan timeout with `-t` option (default: 300s)
+- **Resource Management**: Control max concurrent scans with `-c` option (default: 5)
+- **Enhanced Logging**: File-based logging via `-l` option
 
 ## Installation
 
@@ -91,11 +56,7 @@ docker build -t reconblitz .
 docker run -it reconblitz --target example.com --profile web
 ```
 
-## Security Features
-1. **Input Sanitization**: All targets are validated before scanning
-2. **Timeouts**: Default 5-minute timeout per tool
-3. **Containerization**: Optional Docker execution for isolation
-4. **Error Handling**: Graceful failure for tool execution errors
+
 
 ## Cloud Deployment
 

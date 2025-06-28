@@ -1,12 +1,12 @@
 use serde::Serialize;
-use std::collections::HashMap;
+
 use chrono::Utc;
 use html_escape;
 
 #[derive(Serialize)]
 pub struct UnifiedReport {
     target: String,
-    scans: HashMap<String, ScanReport>,
+    scans: Vec<ScanReport>,
 }
 
 #[derive(Serialize)]
@@ -16,7 +16,7 @@ pub struct ScanReport {
     success: bool,
 }
 
-pub fn generate_json_report(results: &HashMap<String, crate::scanner::ScanResult>) -> String {
+pub fn generate_json_report(results: &Vec<(String, crate::scanner::ScanResult)>) -> String {
     let unified = UnifiedReport {
         target: "".to_string(), // Will be set by caller
         scans: results
@@ -28,21 +28,18 @@ pub fn generate_json_report(results: &HashMap<String, crate::scanner::ScanResult
                     crate::scanner::ScanResult::Error(e) => (e.clone(), false),
                     crate::scanner::ScanResult::Timeout => ("Command timed out".to_string(), false),
                 };
-                (
-                    tool.clone(),
-                    ScanReport {
-                        tool: tool.clone(),
-                        output,
-                        success,
-                    },
-                )
+                ScanReport {
+                    tool: tool.clone(),
+                    output,
+                    success,
+                }
             })
             .collect(),
     };
     serde_json::to_string_pretty(&unified).unwrap()
 }
 
-pub fn generate_html_report(results: &HashMap<String, crate::scanner::ScanResult>) -> String {
+pub fn generate_html_report(results: &Vec<(String, crate::scanner::ScanResult)>) -> String {
     let timestamp = Utc::now().format("%Y-%m-%d %H:%M:%S").to_string();
     
     let mut html = String::new();

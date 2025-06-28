@@ -7,7 +7,7 @@ pub mod reporter;
 
 pub async fn run(profile: &ScanProfile, target: &str, format: &str, stealth: bool, benchmark: bool) -> anyhow::Result<()> {
     let start = Instant::now();
-    let results = orchestrator::run_scan(profile, target, stealth, benchmark).await?;
+    let results = orchestrator::run_scan(profile, target, stealth, benchmark, 600, 10).await?;
 
     let report = match format {
         "html" => reporter::generate_html_report(&results),
@@ -60,4 +60,10 @@ pub fn load_profiles() -> Vec<ScanProfile> {
             ],
         },
     ]
+}
+
+pub fn is_valid_target(target: &str) -> bool {
+    // For now, we'll consider any non-empty string a valid target.
+    // A more robust validation (e.g., regex for IPs/hostnames) can be added later.
+    !target.trim().is_empty()
 }
