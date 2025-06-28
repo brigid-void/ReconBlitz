@@ -129,3 +129,6 @@ To create your own demo:
 
 ## License
 MIT - See [LICENSE](LICENSE) for details.
+
+## Development Note
+This project is developed using [Windsurf](https://windsurf.codes) powered by DeepSeek R1, allowing for AI-assisted development on the go.
