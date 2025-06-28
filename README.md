@@ -111,6 +111,10 @@ ReconBlitz can be deployed to cloud environments for scalable distributed scanni
 ### Automated CI/CD
 See [.github/workflows/deploy.yml](.github/workflows/deploy.yml) for GitHub Actions deployment to AWS ECS.
 
+## Showcase
+
+![ReconBlitz Demo](https://user-images.githubusercontent.com/.../reconblitz-demo.gif)
+
 ## Contributing
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/your-feature`)
