@@ -115,6 +115,11 @@ See [.github/workflows/deploy.yml](.github/workflows/deploy.yml) for GitHub Acti
 
 ![ReconBlitz Demo](https://user-images.githubusercontent.com/.../reconblitz-demo.gif)
 
+To create your own demo:
+1. Install [asciinema](https://asciinema.org/)
+2. Record your session: `asciinema rec`
+3. Upload to asciinema.org
+
 ## Contributing
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/your-feature`)
